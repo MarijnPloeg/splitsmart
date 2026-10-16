@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a group · SplitSmart</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0055D4">
+<meta property="og:title" content="You're invited to a group on SplitSmart">
+<meta property="og:description" content="Tap to join and split costs together.">
+<meta property="og:image" content="https://marijnploeg.github.io/splitsmart/images/main.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 58 58'%3E%3Ccircle cx='29' cy='29' r='27' fill='%230055D4'/%3E%3Ccircle cx='21' cy='25' r='3.6' fill='%23fff'/%3E%3Ccircle cx='37' cy='25' r='3.6' fill='%23fff'/%3E%3Cpath d='M21 35c4 4.5 12 4.5 16 0' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+:root { --bg:#FFFFFF; --fg:#1C1C1E; --muted:#5E5E66; --line:#E5E5EA; --accent:#0055D4; --accent-deep:#003A94; --soft:#EAF1FD; }
+@media (prefers-color-scheme: dark) { :root { --bg:#111214; --fg:#EDEDF0; --muted:#A1A1AA; --line:#2C2D31; --accent:#3D7BFF; --accent-deep:#1F4FB8; --soft:#17233A; color-scheme: dark } }
+body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.5 'Source Sans 3', -apple-system, system-ui, sans-serif; padding:0 20px; }
+main { max-width:440px; margin:0 auto; padding-block:56px 48px; display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; }
+h1 { margin:0; font:900 30px/1.15 'Nunito', ui-rounded, sans-serif; text-wrap:balance; }
+p { margin:0; color:var(--muted); }
+.code { font:900 34px/1 'Nunito', ui-rounded, sans-serif; letter-spacing:6px; padding:16px 22px; border-radius:20px; background:var(--soft); color:var(--accent); user-select:all; }
+.btn { display:flex; align-items:center; justify-content:center; width:100%; height:58px; border-radius:18px; text-decoration:none; font:900 18px/1 'Nunito', ui-rounded, sans-serif; letter-spacing:.4px; box-sizing:border-box; cursor:pointer; border:0; }
+.primary { background:var(--accent); color:#fff; box-shadow:0 5px 0 var(--accent-deep); }
+.secondary { background:transparent; color:var(--fg); border:2px solid var(--line); border-bottom-width:5px; }
+.btn:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+.steps { text-align:left; width:100%; display:flex; flex-direction:column; gap:8px; padding:16px 18px; border:2px solid var(--line); border-radius:20px; box-sizing:border-box; }
+.steps strong { font-family:'Nunito', ui-rounded, sans-serif; font-weight:900; }
+small { color:var(--muted); font-size:14px; }
+</style>
+</head>
+<body>
+<main>
+  <svg width="88" height="94" viewBox="0 0 58 62" role="img" aria-label="Splitty, the SplitSmart mascot"><ellipse cx="29" cy="58" rx="16" ry="3" fill="#E5E5EA"/><circle cx="29" cy="29" r="25" fill="#0055D4"/><circle cx="29" cy="29" r="19" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="2.5"/><path d="M17 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M33 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M20 34c4 7 14 7 18 0z" fill="#FFFFFF"/></svg>
+  <h1 id="title">You're invited to a group</h1>
+  <p id="sub">Open SplitSmart to join and split costs together.</p>
+  <div class="code" id="code" aria-label="Invite code">······</div>
+  <a class="btn primary" id="open" href="#">OPEN IN SPLITSMART</a>
+  <button class="btn secondary" id="copy" type="button">COPY CODE</button>
+  <div class="steps">
+    <strong>No app yet?</strong>
+    <span>1. Ask the person who invited you for a SplitSmart beta invite (TestFlight).</span>
+    <span>2. Open SplitSmart, tap <b>+</b> → <b>Join with a code</b> and enter the code above.</span>
+  </div>
+  <small><a href="../" style="color:var(--accent)">What is SplitSmart?</a> · <a href="../privacy/" style="color:var(--accent)">Privacy</a></small>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var code = (q.get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
+  var group = (q.get('g') || '').slice(0, 60);
+  var codeEl = document.getElementById('code');
+  var open = document.getElementById('open');
+  if (!code) {
+    codeEl.textContent = 'No code';
+    open.hidden = true;
+    document.getElementById('copy').hidden = true;
+    document.getElementById('sub').textContent = 'This link is missing its invite code. Ask for a new invite.';
+    return;
+  }
+  codeEl.textContent = code;
+  if (group) {
+    document.getElementById('title').textContent = 'Join ' + group;
+    document.title = 'Join ' + group + ' · SplitSmart';
+  }
+  var app = 'splitsmart://join/' + encodeURIComponent(code);
+  open.href = app;
+  // Try once on arrival; Safari asks "Open in SplitSmart?" when the app is installed.
+  setTimeout(function () { location.href = app; }, 300);
+  document.getElementById('copy').addEventListener('click', function () {
+    var b = this;
+    var done = function () { b.textContent = 'COPIED'; setTimeout(function () { b.textContent = 'COPY CODE'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, function () { selectCode(); });
+    else selectCode();
+  });
+  function selectCode() {
+    var r = document.createRange(); r.selectNodeContents(codeEl);
+    var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+})();
+</script>
+</body>
+</html>
