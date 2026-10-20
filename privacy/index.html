@@ -42,16 +42,18 @@ td:first-child { font-weight: 600; min-width: 120px; }
 hr { border: 0; border-top: 1px solid var(--line); margin: 16px 0 0; }
 footer { color: var(--muted); font-size: 14px; }
 </style>
+<!-- Cookieless visit counts (TelemetryDeck); the App ID lives only in site/analytics.js -->
+<script src="../analytics.js" defer></script>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="brand" href="../" style="text-decoration:none"><svg width="28" height="28" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="27" fill="currentColor"/><circle cx="21" cy="25" r="3.6" fill="#fff"/><circle cx="37" cy="25" r="3.6" fill="#fff"/><path d="M21 35c4 4.5 12 4.5 16 0" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>SplitSmart</a>
     <h1>Privacy Policy</h1>
-    <p class="meta">Last updated 16 October 2026 · Applies to the SplitSmart iOS app and its App Clip</p>
+    <p class="meta">Last updated 20 October 2026 · Applies to the SplitSmart iOS app and its App Clip</p>
   
   </header>
-  <nav aria-label="Pages"><a href="../">Home</a><a href="../terms/">Terms of Use</a></nav>
+  <nav aria-label="Pages"><a href="../">Home</a><a href="../terms/">Terms of Use</a><a href="../support/">Support</a></nav>
   <section id="privacy" aria-labelledby="privacy-h">
     <h2 id="privacy-h">Privacy Policy</h2>
     <div class="summary">
@@ -73,41 +75,50 @@ footer { color: var(--muted); font-size: 14px; }
         <tr><td>Payment details</td><td>Optional: your IBAN, account holder name or payment link, shown only to members of your groups so they can pay you back.</td></tr>
         <tr><td>Guests on a bill</td><td>A first name you or a guest enters for one bill, and that guest's share. Guests don't need an account.</td></tr>
         <tr><td>Bank transactions (optional)</td><td>Only if you connect a bank: card payments from the accounts you choose, used to suggest expenses to split. Read-only. You confirm every suggestion.</td></tr>
-        <tr><td>Device token</td><td>To send you notifications you asked for, such as a bill being ready to claim.</td></tr>
+        <tr><td>Bookkeeper's email (optional)</td><td>Only if you add it: the address your receipts and shares are sent to, so you don't have to type it each time.</td></tr>
+        <tr><td>Contacts (only who you pick)</td><td>When you add a friend from Contacts, the iPhone's contact picker hands SplitSmart only the person you pick: their name is added to the group, and their phone number is used only on your iPhone to open WhatsApp or Messages with the invite. We never read or upload your contact list.</td></tr>
+        <tr><td>Device token</td><td>To send you notifications you asked for, such as a bill being ready to claim or someone paying you back. The App Clip can get a short-lived notification when a bill you claimed is final.</td></tr>
       </tbody>
     </table></div>
-    <p>We do not collect your location, contacts, health data or advertising identifiers, and we do not use analytics or tracking tools.</p>
+    <p>We do not collect your location, your contact list, health data or advertising identifiers, and we do not use advertising or tracking tools. Anonymous usage statistics are described in section 3.</p>
+    <p><strong>What stays on your iPhone.</strong> Insights (your food profile, tips per country and trip spending) are worked out on your iPhone from data you can already see in your groups, and a trip budget you set is stored only on your iPhone. Apple Pay suggestions read only the amount and merchant that your own Shortcuts automation passes on, and nothing leaves your iPhone unless you choose to save the expense. Shortcuts, Siri and Control Center actions use the same account and data as the app, and anything that saves or sends asks you first.</p>
 
-    <h3>3. Legal basis</h3>
-    <p>We process your data to provide the service you signed up for (performance of a contract, GDPR article 6(1)(b)). Connecting a bank and enabling notifications are based on your consent (article 6(1)(a)), which you can withdraw at any time in the app or in iOS Settings.</p>
+    <h3>3. Usage statistics</h3>
+    <p>To see which features help and where people get stuck, the app counts how it is used with <strong>TelemetryDeck</strong>, a privacy-first analytics service hosted in the EU. It receives events such as "a group was created" or "a bill was split", with simple labels (the kind of group, how a bill was read, about how many people), plus the app version, iOS version, device model and language.</p>
+    <p>We never send names, amounts, merchants, receipt contents, anything you type, or your account. Events carry a random number made on your iPhone for this purpose only, which is hashed on your iPhone and again on TelemetryDeck's server, so they can't be linked to you. No IP address is stored, nothing is used for advertising or tracking, and nothing is sold.</p>
+    <p>You can turn this off at any time in the app: Profile, App, "Share anonymous usage stats". It then stops at once, in the app, its App Clip and its share extension. Our website counts visits with TelemetryDeck's cookieless script, without cookies or personal data.</p>
 
-    <h3>4. Who processes data for us</h3>
+    <h3>4. Legal basis</h3>
+    <p>We process your data to provide the service you signed up for (performance of a contract, GDPR article 6(1)(b)). Connecting a bank and enabling notifications are based on your consent (article 6(1)(a)), which you can withdraw at any time in the app or in iOS Settings. Anonymous usage statistics rely on our legitimate interest in improving the app (article 6(1)(f)); you can switch them off in Profile.</p>
+
+    <h3>5. Who processes data for us</h3>
     <ul>
       <li><strong>Supabase</strong> hosts our database, file storage and server functions in the EU (Frankfurt, Germany).</li>
-      <li><strong>Apple</strong> provides Sign in with Apple and delivers push notifications.</li>
+      <li><strong>Apple</strong> provides Sign in with Apple and delivers push notifications. If you use Siri, Apple handles your voice request under its own privacy policy.</li>
       <li><strong>Anthropic</strong> reads a receipt image only when your iPhone cannot read it on the device. The image is sent to Anthropic's API to extract the items and amounts. Under Anthropic's commercial terms, this data is not used to train their models.</li>
       <li><strong>Enable Banking</strong> (Finland) connects to your bank under PSD2 when you choose to connect a bank account.</li>
+      <li><strong>TelemetryDeck</strong> (Germany) receives the anonymous usage statistics described in section 3, stored in the EU.</li>
       <li><strong>Frankfurter</strong> provides public ECB exchange rates. No personal data is sent.</li>
     </ul>
     <p>Most receipts are read entirely on your iPhone and never leave it for this purpose. When data is processed outside the EU, it is protected by the safeguards the GDPR requires, such as the EU Standard Contractual Clauses.</p>
 
-    <h3>5. Who can see your data</h3>
-    <p>Members of a group see that group's expenses, receipts, balances, names and photos, and the payment details you chose to add. People outside your groups see nothing, except that a guest scanning a bill's QR code sees that one bill's items and the first names of the people on it.</p>
+    <h3>6. Who can see your data</h3>
+    <p>Members of a group see that group's expenses, receipts, balances, names and photos, and the payment details you chose to add. People you share a group with can also see the badges you earned, with their tiers and counts, on your page in the app; your insights and trip budgets stay on your iPhone and only you see them. People outside your groups see nothing, except that a guest scanning a bill's QR code sees that one bill's items and the first names of the people on it. People in the app only lists people you already share a group with.</p>
 
-    <h3>6. How long we keep it</h3>
+    <h3>7. How long we keep it</h3>
     <p>We keep your data while you have an account. When you delete your account in the app (Profile, Delete account), your profile, photo, payment details, device tokens and badges are deleted. Expenses you shared with a group stay visible to the other members under the name "Deleted user", so their balances remain correct. Bank connections expire automatically after the consent period your bank allows (usually 90 or 180 days) or when you disconnect.</p>
     <p>Receipt photos and screenshots are kept while their group exists. For your bookkeeping or an expense claim, send a copy to your bookkeeper and keep it in your own records.</p>
 
-    <h3>7. Your rights</h3>
+    <h3>8. Your rights</h3>
     <p>You can ask to access, correct, export or delete your data, or object to or restrict how we use it. Most of this you can do in the app; for anything else, email <span class="mail">marijnploeg@gmail.com</span> and we'll respond within one month. You can also file a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens, autoriteitpersoonsgegevens.nl).</p>
 
-    <h3>8. Security</h3>
+    <h3>9. Security</h3>
     <p>Data is encrypted in transit, access is restricted per group in the database, and server keys never reach the app. No system is perfectly secure, and we will inform you if a breach affects your data.</p>
 
-    <h3>9. Children</h3>
+    <h3>10. Children</h3>
     <p>SplitSmart is not meant for children under 16.</p>
 
-    <h3>10. Changes</h3>
+    <h3>11. Changes</h3>
     <p>If we change this policy in a meaningful way, we'll tell you in the app before the change takes effect.</p>
   </section>
   <footer>SplitSmart · Marijn Ploeg · Netherlands · marijnploeg@gmail.com</footer>

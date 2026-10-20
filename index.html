@@ -12,6 +12,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 58 58'%3E%3Ccircle cx='29' cy='29' r='27' fill='%230055D4'/%3E%3Ccircle cx='21' cy='25' r='3.6' fill='%23fff'/%3E%3Ccircle cx='37' cy='25' r='3.6' fill='%23fff'/%3E%3Cpath d='M21 35c4 4.5 12 4.5 16 0' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
 <style>body{margin:0} html{scroll-behavior:smooth} a{color:#0055D4} a:hover{color:#003A94} a:focus-visible{outline:3px solid #0055D4;outline-offset:3px;border-radius:8px} img{max-width:100%} @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}</style>
+<!-- Cookieless visit counts (TelemetryDeck); the App ID lives only in site/analytics.js -->
+<script src="analytics.js" defer></script>
 </head>
 <body>
 <div style="width: 100%; background: #FFFFFF; color: #1C1C1E; font-family: 'Source Sans 3', -apple-system, system-ui, sans-serif; font-size: 18px; line-height: 1.55">
@@ -66,10 +68,10 @@
       <div style="flex: 999 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
         <span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 15px; letter-spacing: 1px; color: #B45309">THE RESTAURANT BILL, SOLVED</span>
         <h2 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(36px, 4.5vw, 54px); line-height: 1.05; letter-spacing: -1px; color: #1C1C1E; text-wrap: balance">Scan the bill.<br>Everyone taps what they had.</h2>
-        <p style="margin: 0; font-size: 20px; color: #5A3A0C; max-width: 32em">Point your camera at the receipt. SplitSmart reads every dish, price and the tip, mostly right on your iPhone. Friends claim their own items, shared plates split evenly, and the tip is shared fairly. Your share is ready before the coffee arrives.</p>
+        <p style="margin: 0; font-size: 20px; color: #5A3A0C; max-width: 32em">Point your camera at the receipt. SplitSmart reads every dish, price and the tip, mostly right on your iPhone. Tap what you had, tap a friend&rsquo;s face to share a dish, and the tip is shared fairly. A guest at the table can join for that one bill. Anything left over? SplitSmart asks &ldquo;Whose was this?&rdquo; before the bill goes into the group.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px">
           <div style="padding: 14px 18px; border-radius: 18px; background: #FFFFFF; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; color: #6C6C70">Your share, incl. tip</span><span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 30px; color: #B54708">€33.38</span></div>
-          <div style="padding: 14px 18px; border-radius: 18px; background: #FFFFFF; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; color: #6C6C70">Friend without the app?</span><span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">They scan a QR code</span></div>
+          <div style="padding: 14px 18px; border-radius: 18px; background: #FFFFFF; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; color: #6C6C70">Friend without the app?</span><span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Scan the QR, tap, done</span><span style="font-size: 14px; color: #6C6C70">The App Clip opens, no download</span></div>
         </div>
       </div>
     </div>
@@ -81,55 +83,54 @@
       <p style="margin: 0; font-size: 20px; color: #3A3A3C">The everyday stuff stays simple. The handy extras are there when you need them and out of the way when you don't.</p>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px">
-      
+
         <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
           <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z M9 8h6 M9 12h6"></path></svg>
           </div>
-          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Restaurant bills</h3>
-          <p style="margin: 0; font-size: 17px; color: #4A4A50">Scan, claim your own dishes, tip split fairly. Friends without the app join by QR code.</p>
+          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Any receipt</h3>
+          <p style="margin: 0; font-size: 17px; color: #4A4A50">Restaurant bills, shop receipts and delivery screenshots from Uber Eats, Thuisbezorgd or any app. Or send one from anywhere with Share&nbsp;&rarr;&nbsp;SplitSmart.</p>
         </div>
-      
-        <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
-          <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3z M14 10h4l3 3v4h-7z M7 19.5a1.5 1.5 0 1 0 0-.01 M17 19.5a1.5 1.5 0 1 0 0-.01"></path></svg>
-          </div>
-          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Delivery orders</h3>
-          <p style="margin: 0; font-size: 17px; color: #4A4A50">Add screenshots from Uber Eats, Thuisbezorgd or any app. Fees are shared like the tip.</p>
-        </div>
-      
+
         <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
           <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18 M3 12h18 M12 3c3 3.5 3 14.5 0 18 M12 3c-3 3.5-3 14.5 0 18"></path></svg>
           </div>
-          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Any currency</h3>
-          <p style="margin: 0; font-size: 17px; color: #4A4A50">Pay in rand, dollars or pounds. Converted once with your card amount or the ECB rate.</p>
+          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Trips, any currency</h3>
+          <p style="margin: 0; font-size: 17px; color: #4A4A50">Pay in rand, dollars or pounds. Each expense is converted once, with your card&rsquo;s amount or the ECB rate of the day. Car rides split by the kilometre.</p>
         </div>
-      
-        <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
-          <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16V11l2-5h10l2 5v5 M3 16h18v3H3z"></path></svg>
-          </div>
-          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Car rides</h3>
-          <p style="margin: 0; font-size: 17px; color: #4A4A50">Enter the kilometres and who was in the car. Fuel is split per km, to the cent.</p>
-        </div>
-      
-        <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
-          <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8a3 3 0 1 0 0-.01 M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6 M17 8v6 M14 11h6"></path></svg>
-          </div>
-          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Guests on a bill</h3>
-          <p style="margin: 0; font-size: 17px; color: #4A4A50">Someone joined dinner who isn’t in the group? Add them to that one bill only.</p>
-        </div>
-      
+
         <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
           <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3 M18 3v4h-4 M20 12a8 8 0 0 1-14 5.3 M6 21v-4h4"></path></svg>
           </div>
-          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Whose turn?</h3>
-          <p style="margin: 0; font-size: 17px; color: #4A4A50">One quiet line tells your house who is up for the next groceries. It evens out by itself.</p>
+          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Homes and couples</h3>
+          <p style="margin: 0; font-size: 17px; color: #4A4A50">One quiet line shows whose turn it is for the groceries. Pay with Apple Pay and SplitSmart offers to split it, right at the till (set up once in Shortcuts).</p>
         </div>
-      
+
+        <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8a3 3 0 1 0 0-.01 M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6 M17 8v6 M14 11h6"></path></svg>
+          </div>
+          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">People</h3>
+          <p style="margin: 0; font-size: 17px; color: #4A4A50">Everyone you split with in one place, and where you stand with each. Add a friend from Contacts: SplitSmart only sees the person you pick, and nothing is uploaded.</p>
+        </div>
+
+        <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10 M10 20V4 M16 20v-7 M22 20H2"></path></svg>
+          </div>
+          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Insights, just for you</h3>
+          <p style="margin: 0; font-size: 17px; color: #4A4A50">Your food profile, your tips per country and how a trip is going against your own budget. Worked out on your iPhone, never compared, never sold.</p>
+        </div>
+
+        <div style="border: 2px solid #E5E5EA; border-bottom-width: 5px; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: #EAF1FD; display: flex; align-items: center; justify-content: center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0055D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h4"></path></svg>
+          </div>
+          <h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #1C1C1E">Receipts for bookkeepers</h3>
+          <p style="margin: 0; font-size: 17px; color: #4A4A50">Send your share with the original receipt and the VAT per rate. Or export a period as PDFs with an overview spreadsheet.</p>
+        </div>
     </div>
   </section>
 
@@ -138,7 +139,7 @@
       <div style="flex: 999 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
         <span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 15px; letter-spacing: 1px; color: #BFD3F7">SETTLE UP</span>
         <h2 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(36px, 4.5vw, 54px); line-height: 1.05; letter-spacing: -1px; text-wrap: balance">Trip over?<br>All square in a few payments.</h2>
-        <p style="margin: 0; font-size: 20px; color: #DCE8FB; max-width: 32em">Close the trip and SplitSmart works out the fewest payments that settle everyone. Pay with a payment link, a QR code or by copying an IBAN, then tap Paid. Pay in rand, settle in euros, at your card's real rate.</p>
+        <p style="margin: 0; font-size: 20px; color: #DCE8FB; max-width: 32em">Close the trip and SplitSmart works out the fewest payments that settle everyone. Pay with a payment link, a QR code or by copying an IBAN, then tap Paid. Pay in rand, settle in euros, at your card's real rate. When the last payment is in: Clean Slate.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px">
           <div style="padding: 14px 18px; border-radius: 18px; background: #FFFFFF; color: #1C1C1E; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; color: #6C6C70">Whole group settled in</span><span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 30px; color: #0055D4">3 payments</span></div>
           <div style="padding: 14px 18px; border-radius: 18px; background: #FFFFFF; color: #1C1C1E; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; color: #6C6C70">Card amount or ECB rate</span><span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 30px; color: #0055D4">R 850 → €42.16</span></div>
@@ -161,10 +162,14 @@
     <div style="flex: 999 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
       <span style="font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 15px; letter-spacing: 1px; color: #0055D4">CALM, NOT NAGGY</span>
       <h2 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(34px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.8px; color: #0B1F3F; text-wrap: balance">Staying tidy is rewarded. Spending more never is.</h2>
-      <p style="margin: 0; font-size: 20px; color: #3A3A3C; max-width: 32em">A group Tidy score, badges for quick claims and fast settling, and a few fun facts about your group. No streaks to lose, no leaderboards, no guilt trips. Reminders come from Splitty, not from your friends.</p>
+      <p style="margin: 0; font-size: 20px; color: #3A3A3C; max-width: 32em">A group Tidy score, badges for quick claims and fast settling that grow from Silver to Gold to Diamond, and fun facts about your group&rsquo;s habits. Your badges show on your page for the people in your groups, and tiers never go down. No leaderboards, no guilt trips. Reminders come from Splitty, not from your friends.</p>
+      <h3 style="margin: 8px 0 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 20px; color: #0B1F3F">Right there on your iPhone</h3>
       <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 18px">
         <li style="display: flex; gap: 10px; align-items: baseline"><span style="color: #F59E0B; font-weight: 900">●</span>Widgets for your balance, your trip and what's left to do</li>
-        <li style="display: flex; gap: 10px; align-items: baseline"><span style="color: #F59E0B; font-weight: 900">●</span>Live Activity while a bill is being claimed</li>
+        <li style="display: flex; gap: 10px; align-items: baseline"><span style="color: #F59E0B; font-weight: 900">●</span>A Live Activity while a bill is being claimed</li>
+        <li style="display: flex; gap: 10px; align-items: baseline"><span style="color: #F59E0B; font-weight: 900">●</span>Siri and Shortcuts: &ldquo;Scan a bill in SplitSmart&rdquo; or &ldquo;What do I owe in SplitSmart?&rdquo;</li>
+        <li style="display: flex; gap: 10px; align-items: baseline"><span style="color: #F59E0B; font-weight: 900">●</span>Scan or add an expense from the Action button, Control Center or the Lock Screen</li>
+        <li style="display: flex; gap: 10px; align-items: baseline"><span style="color: #F59E0B; font-weight: 900">●</span>A notification when a bill is ready to claim or someone pays you back</li>
         <li style="display: flex; gap: 10px; align-items: baseline"><span style="color: #F59E0B; font-weight: 900">●</span>Dutch and English</li>
       </ul>
     </div>
@@ -172,9 +177,9 @@
 
   <section style="background: #EAF1FD">
     <div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px">
-      <div style="display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #003A94">Your data stays yours</h3><p style="margin: 0; font-size: 17px; color: #33508A">Stored in the EU. No ads, no tracking, never sold. Delete your account in the app any time.</p></div>
-      <div style="display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #003A94">Suggestions, never surprises</h3><p style="margin: 0; font-size: 17px; color: #33508A">Scans and bank suggestions only propose. You confirm every split and every payment.</p></div>
-      <div style="display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #003A94">Made for Dutch groups</h3><p style="margin: 0; font-size: 17px; color: #33508A">Works with ING, Rabobank and bunq payment links and IBANs. Bank feed coming soon.</p></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #003A94">Your data stays yours</h3><p style="margin: 0; font-size: 17px; color: #33508A">Stored in the EU. No ads, no tracking, never sold. Insights are worked out on your iPhone. Delete your account in the app any time.</p></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #003A94">Suggestions, never surprises</h3><p style="margin: 0; font-size: 17px; color: #33508A">Scans and Apple Pay suggestions only propose. You confirm every split and every payment.</p></div>
+      <div style="display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 22px; color: #003A94">Made for Dutch groups</h3><p style="margin: 0; font-size: 17px; color: #33508A">In Dutch and English. Add your IBAN and a Tikkie or bunq.me link; friends only see them when it's time to pay.</p></div>
     </div>
   </section>
 
@@ -182,6 +187,9 @@
     <svg width="96" height="102" viewBox="0 0 58 62" role="img" aria-label="Splitty, cheering"><ellipse cx="29" cy="58" rx="16" ry="3" fill="#E5E5EA"></ellipse><circle cx="29" cy="29" r="25" fill="#0055D4"></circle><circle cx="29" cy="29" r="19" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="2.5"></circle><path d="M17 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"></path><path d="M33 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"></path><path d="M20 34c4 7 14 7 18 0z" fill="#FFFFFF"></path></svg>
     <h2 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(36px, 5vw, 60px); line-height: 1.05; letter-spacing: -1px; color: #0B1F3F; text-wrap: balance">Your next trip, sorted.</h2>
     <p style="margin: 0; font-size: 20px; color: #3A3A3C; max-width: 30em">SplitSmart is in beta on iPhone. Ask a friend who uses it for an invite, or get on the list for the App Store launch.</p>
+    <!-- TODO App Store launch: replace the beta paragraph above and the button below with the official "Download on the App Store" badge
+         (artwork from Apple's Marketing Resources, linked to the real App Store URL, e.g. https://apps.apple.com/app/idXXXXXXXXXX).
+         Don't add the badge or link before the app is live. -->
     <a href="mailto:marijnploeg@gmail.com?subject=SplitSmart%20beta" style="display: inline-flex; align-items: center; gap: 10px; height: 60px; padding: 0 28px; border-radius: 18px; background: #0055D4; box-shadow: 0 5px 0 #003A94; color: #FFFFFF; text-decoration: none; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 19px; letter-spacing: 0.4px">ASK FOR A BETA INVITE</a>
     <span style="font-size: 15px; color: #6C6C70">Requires iOS 26 or later</span>
   </section>
@@ -192,6 +200,7 @@
       <nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 22px">
         <a href="privacy/" style="color: #3A3A3C">Privacy Policy</a>
         <a href="terms/" style="color: #3A3A3C">Terms of Use</a>
+        <a href="support/" style="color: #3A3A3C">Support</a>
         <span>marijnploeg@gmail.com</span>
       </nav>
     </div>
