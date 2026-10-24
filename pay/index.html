@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your share · SplitSmart</title>
+<meta name="robots" content="noindex, nofollow">
+<!-- The pay code is in the query: never hand it on (no Referer on links), no analytics, no web fonts, no third parties.
+     The only request this page makes is to our own Supabase project (guest_pay_page / guest_says_paid). -->
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://*.supabase.co http://127.0.0.1:54321 http://localhost:54321; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:title" content="Your share on SplitSmart">
+<meta property="og:description" content="Pay in one tap, no app needed.">
+<meta property="og:image" content="https://marijnploeg.github.io/splitsmart/images/main.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 58 58'%3E%3Ccircle cx='29' cy='29' r='27' fill='%230055D4'/%3E%3Ccircle cx='21' cy='25' r='3.6' fill='%23fff'/%3E%3Ccircle cx='37' cy='25' r='3.6' fill='%23fff'/%3E%3Cpath d='M21 35c4 4.5 12 4.5 16 0' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="pay.css">
+</head>
+<body>
+<main id="main" class="loading" aria-busy="true">
+  <header class="top">
+    <svg width="28" height="30" viewBox="0 0 58 62" aria-hidden="true"><ellipse cx="29" cy="58" rx="16" ry="3" fill="#E5E5EA" fill-opacity="0.6"/><circle cx="29" cy="29" r="25" fill="#0055D4"/><circle cx="29" cy="29" r="19" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="2.5"/><path d="M17 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M33 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M20 34c4 7 14 7 18 0z" fill="#FFFFFF"/></svg>
+    <b>SplitSmart</b>
+    <span class="spacer"></span>
+    <small data-t="noApp">No app needed</small>
+  </header>
+
+  <!-- Pay: the share and the payer's ways to be paid, best first. -->
+  <section id="pay" aria-live="polite">
+    <div class="hero">
+      <span class="who" id="who"></span>
+      <span class="amount" id="amount"></span>
+      <span class="share" id="share"></span>
+    </div>
+  </section>
+  <h2 class="label" id="payLabel"></h2>
+  <div class="methods" id="methods"></div>
+  <button class="btn primary" id="paid" type="button" data-t="iPaid">I've paid</button>
+  <p class="error" id="paidError" role="alert" hidden></p>
+
+  <!-- Thanks / all paid / broken link / can't load. -->
+  <section class="state" id="state" hidden aria-live="polite">
+    <div class="tick" id="stateTick" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h1 id="stateTitle"></h1>
+    <p id="stateSub"></p>
+    <button class="btn primary" id="retry" type="button" data-t="retry" hidden>Try again</button>
+  </section>
+
+  <div class="grow"></div>
+  <footer>
+    <span data-t="never">SplitSmart never touches the money.</span>
+    · <a href="../privacy/" rel="noreferrer" data-t="privacy">Privacy</a>
+  </footer>
+</main>
+<script src="config.js"></script>
+<script src="paylink.js"></script>
+<script src="qr.js"></script>
+<script src="pay.js"></script>
+</body>
+</html>
