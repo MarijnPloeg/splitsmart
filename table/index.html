@@ -33,20 +33,73 @@ small { color:var(--muted); font-size:14px; }
 <body>
 <main>
   <svg width="88" height="94" viewBox="0 0 58 62" role="img" aria-label="Splitty, the SplitSmart mascot"><ellipse cx="29" cy="58" rx="16" ry="3" fill="#E5E5EA"/><circle cx="29" cy="29" r="25" fill="#0055D4"/><circle cx="29" cy="29" r="19" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="2.5"/><path d="M17 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M33 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M20 34c4 7 14 7 18 0z" fill="#FFFFFF"/></svg>
-  <h1 id="title">Tap what you had</h1>
-  <p id="sub">Open the bill in SplitSmart and tap your items. That's your share sorted.</p>
-  <a class="btn primary" id="open" href="#">OPEN IN SPLITSMART</a>
+  <h1 id="title" data-t="title">Tap what you had</h1>
+  <p id="sub" data-t="sub">Open the bill in SplitSmart and tap your items. That's your share sorted.</p>
+  <a class="btn primary" id="open" href="#" data-t="open">OPEN IN SPLITSMART</a>
   <div class="steps">
-    <strong>No app yet?</strong>
-    <span>Ask the person who paid for a SplitSmart beta invite (TestFlight), then scan the code again.</span>
-    <span>Or ask them to add your items for you. That works too.</span>
+    <strong data-t="noApp">No app yet?</strong>
+    <span data-t="step1">Ask the person who paid for a SplitSmart beta invite (TestFlight), then scan the code again.</span>
+    <span data-t="step2">Or ask them to add your items for you. That works too.</span>
   </div>
-  <small><a href="../" style="color:var(--accent)">What is SplitSmart?</a> · <a href="../privacy/" style="color:var(--accent)">Privacy</a></small>
+  <small><a href="../" style="color:var(--accent)" data-t="what">What is SplitSmart?</a> · <a href="../privacy/" style="color:var(--accent)" data-t="privacy">Privacy</a></small>
 </main>
 <script>
 // Reads r (the bill) and t (the table token) and hands them to the app. Nothing is stored or sent anywhere.
 (function () {
   var q = new URLSearchParams(location.search);
+  // Language: &lang=nl|en|es|de, else the browser's (es* → es, de* → de, nl* → nl), else en. Spanish:
+  // design/glossary-es.md, German: design/glossary-de.md.
+  var lang = (function () {
+    var forced = (q.get('lang') || '').toLowerCase();
+    if (forced === 'nl' || forced === 'en' || forced === 'es' || forced === 'de') return forced;
+    var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+    for (var i = 0; i < list.length; i++) {
+      var l = String(list[i]).toLowerCase();
+      if (l.indexOf('nl') === 0) return 'nl';
+      if (l.indexOf('es') === 0) return 'es';
+      if (l.indexOf('de') === 0) return 'de';
+      if (l.indexOf('en') === 0) return 'en';
+    }
+    return 'en';
+  })();
+  var T = {
+    en: {
+      doc: 'Tap what you had · SplitSmart', title: 'Tap what you had',
+      sub: "Open the bill in SplitSmart and tap your items. That's your share sorted.", open: 'OPEN IN SPLITSMART',
+      noApp: 'No app yet?', step1: 'Ask the person who paid for a SplitSmart beta invite (TestFlight), then scan the code again.',
+      step2: 'Or ask them to add your items for you. That works too.', what: 'What is SplitSmart?', privacy: 'Privacy',
+      mascot: 'Splitty, the SplitSmart mascot', badTitle: "This link doesn't work",
+      badSub: 'Part of it is missing. Ask the person who paid to show the code again.'
+    },
+    nl: {
+      doc: 'Tik aan wat je had · SplitSmart', title: 'Tik aan wat je had',
+      sub: 'Open de rekening in SplitSmart en tik je items aan. Dan staat jouw deel goed.', open: 'OPEN IN SPLITSMART',
+      noApp: 'Nog geen app?', step1: 'Vraag degene die betaalde om een uitnodiging voor de SplitSmart-bèta (TestFlight) en scan de code daarna opnieuw.',
+      step2: 'Of vraag of diegene jouw items voor je aantikt. Dat kan ook.', what: 'Wat is SplitSmart?', privacy: 'Privacy',
+      mascot: 'Splitty, de mascotte van SplitSmart', badTitle: 'Deze link werkt niet',
+      badSub: 'Er mist een stukje. Vraag degene die betaalde om de code nog eens te laten zien.'
+    },
+    es: {
+      doc: 'Marca lo tuyo · SplitSmart', title: 'Marca lo tuyo',
+      sub: 'Abre la cuenta en SplitSmart y marca lo que tomaste. Así tu parte queda lista.', open: 'ABRIR EN SPLITSMART',
+      noApp: '¿Aún no tienes la app?', step1: 'Pide a quien pagó una invitación a la beta de SplitSmart (TestFlight) y vuelve a escanear el código.',
+      step2: 'O pídele que marque lo tuyo por ti. También funciona.', what: '¿Qué es SplitSmart?', privacy: 'Privacidad',
+      mascot: 'Splitty, la mascota de SplitSmart', badTitle: 'Este enlace no funciona',
+      badSub: 'Le falta una parte. Pide a quien pagó que vuelva a mostrar el código.'
+    },
+    de: {
+      doc: 'Tippe an, was du hattest · SplitSmart', title: 'Tippe an, was du hattest',
+      sub: 'Öffne die Rechnung in SplitSmart und tippe deine Positionen an. Dann stimmt dein Anteil.', open: 'IN SPLITSMART ÖFFNEN',
+      noApp: 'Noch keine App?', step1: 'Frag die Person, die gezahlt hat, nach einer Einladung zur SplitSmart-Beta (TestFlight), und scanne den Code danach noch mal.',
+      step2: 'Oder bitte sie, deine Positionen für dich anzutippen. Das geht auch.', what: 'Was ist SplitSmart?', privacy: 'Datenschutz',
+      mascot: 'Splitty, das Maskottchen von SplitSmart', badTitle: 'Dieser Link funktioniert nicht',
+      badSub: 'Ein Teil fehlt. Frag die Person, die gezahlt hat, ob sie den Code noch mal zeigt.'
+    }
+  }[lang];
+  document.documentElement.lang = lang;
+  document.title = T.doc;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = T[el.dataset.t]; });
+  document.querySelector('main > svg').setAttribute('aria-label', T.mascot);
   var r = (q.get('r') || '').trim().toLowerCase();
   var t = (q.get('t') || '').trim().toUpperCase();
   var open = document.getElementById('open');
@@ -54,8 +107,8 @@ small { color:var(--muted); font-size:14px; }
   var okToken = /^[A-HJ-NP-Z2-9]{20}$/.test(t);
   if (!okBill || !okToken) {
     open.hidden = true;
-    document.getElementById('title').textContent = "This link doesn't work";
-    document.getElementById('sub').textContent = 'Part of it is missing. Ask the person who paid to show the code again.';
+    document.getElementById('title').textContent = T.badTitle;
+    document.getElementById('sub').textContent = T.badSub;
     return;
   }
   var app = 'splitsmart://table?r=' + encodeURIComponent(r) + '&t=' + encodeURIComponent(t);

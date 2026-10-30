@@ -2,7 +2,7 @@
 // Reads the code, asks guest_pay_page for this one guest's share and the payer's ways to be paid, shows them best
 // first, and I'VE PAID calls guest_says_paid. Nothing is stored, nothing else is contacted.
 // Mock mode for screenshots and local checks: ?c=DEMO1234 (never a real code: D-E-M-O-1 has the O and 1 real codes
-// leave out), with &demo=eur|said|paid|none|link|bad|error for the other states, &open=bank and &lang=nl|en.
+// leave out), with &demo=eur|said|paid|none|link|bad|error for the other states, &open=bank and &lang=nl|en|es|de.
 (function () {
   'use strict';
   var CONFIG = window.SPLITSMART_PAY_CONFIG || {};
@@ -12,14 +12,18 @@
   var isDemo = code === 'DEMO1234';
   var demo = isDemo ? (q.get('demo') || '') : '';
 
-  // ---------------------------------------------------------------- language (nl / en)
+  // ---------------------------------------------------------------- language (nl / en / es / de)
+  // Spanish follows design/glossary-es.md (tú, neutral Spanish); German design/glossary-de.md (du, its guest pay page
+  // terms word for word).
   var lang = (function () {
     var forced = (q.get('lang') || '').toLowerCase();
-    if (forced === 'nl' || forced === 'en') return forced;
+    if (forced === 'nl' || forced === 'en' || forced === 'es' || forced === 'de') return forced;
     var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
     for (var i = 0; i < list.length; i++) {
       var l = String(list[i]).toLowerCase();
       if (l.indexOf('nl') === 0) return 'nl';
+      if (l.indexOf('es') === 0) return 'es';
+      if (l.indexOf('de') === 0) return 'de';
       if (l.indexOf('en') === 0) return 'en';
     }
     return 'en';
@@ -114,6 +118,94 @@
       retry: 'Opnieuw',
       never: 'SplitSmart komt nooit aan het geld.',
       privacy: 'Privacy'
+    },
+    es: {
+      title: 'Tu parte · SplitSmart',
+      noApp: 'Sin app',
+      paidAt: '{payer} pagó en {merchant}',
+      paidBill: '{payer} pagó la cuenta',
+      yourShare: 'tu parte',
+      about: 'unos {amount}',
+      payLabel: 'Paga a {payer}',
+      bunqTitle: 'iDEAL | Wero, Apple Pay o tarjeta',
+      fastest: 'Lo más rápido',
+      filledIn: '{amount} ya puesto',
+      typeIn: 'Escribe {amount}',
+      bankTitle: 'Transferencia',
+      bankSub: 'IBAN y concepto para copiar',
+      iban: 'IBAN',
+      holder: 'Titular',
+      amount: 'Importe',
+      reference: 'Concepto',
+      copy: 'Copiar',
+      copied: 'Copiado',
+      copyLabel: 'Copiar {what}',
+      qr: 'Escanéala con la app de tu banco',
+      qrLabel: 'Código QR de pago para la app de tu banco',
+      paypal: 'PayPal',
+      linkTitle: 'Enlace de pago',
+      linkSub: '{host} · escribe {amount}',
+      noMethods: '{payer} todavía no tiene aquí una forma de pago. Pregúntale cómo lo prefiere y después toca Ya está pagado.',
+      iPaid: 'Ya está pagado',
+      sending: 'Un momento…',
+      sendFailed: 'No se pudo enviar. ¿Lo intentamos otra vez?',
+      thanksTitle: '¡Gracias, {guest}!',
+      thanksTitleNoName: '¡Gracias!',
+      thanksSub: '{payer} recibe un aviso y lo marca cuando le llegue.',
+      paidTitle: 'Todo pagado, ¡gracias!',
+      paidSub: '{payer} ya marcó tu parte de {merchant}.',
+      paidSubNoMerchant: '{payer} ya marcó tu parte.',
+      badTitle: 'Este enlace no funciona',
+      badSub: 'Pide a quien pagó que te lo envíe otra vez.',
+      errorTitle: 'No se pudo cargar',
+      errorSub: 'Revisa tu conexión y vuelve a intentarlo.',
+      retry: 'Reintentar',
+      never: 'SplitSmart nunca toca el dinero.',
+      privacy: 'Privacidad'
+    },
+    de: {
+      title: 'Dein Anteil · SplitSmart',
+      noApp: 'Ohne App',
+      paidAt: '{payer} hat bei {merchant} gezahlt',
+      paidBill: '{payer} hat die Rechnung gezahlt',
+      yourShare: 'dein Anteil',
+      about: 'etwa {amount}',
+      payLabel: 'An {payer} zahlen',
+      bunqTitle: 'iDEAL | Wero, Apple Pay oder Karte',
+      fastest: 'Am schnellsten',
+      filledIn: '{amount} schon eingetragen',
+      typeIn: '{amount} eintippen',
+      bankTitle: 'Überweisung',
+      bankSub: 'IBAN und Verwendungszweck zum Kopieren',
+      iban: 'IBAN',
+      holder: 'Name',
+      amount: 'Betrag',
+      reference: 'Verwendungszweck',
+      copy: 'Kopieren',
+      copied: 'Kopiert',
+      copyLabel: '{what} kopieren',
+      qr: 'Scanne ihn mit deiner Banking-App',
+      qrLabel: 'QR-Code zum Bezahlen mit deiner Banking-App',
+      paypal: 'PayPal',
+      linkTitle: 'Zahlungslink',
+      linkSub: '{host} · {amount} eintippen',
+      noMethods: '{payer} hat hier noch keine Zahlungsart eingerichtet. Frag, wie es am einfachsten geht, und tippe danach auf Ich habe bezahlt.',
+      iPaid: 'Ich habe bezahlt',
+      sending: 'Einen Moment …',
+      sendFailed: 'Das hat nicht geklappt. Noch mal versuchen?',
+      thanksTitle: 'Danke, {guest}!',
+      thanksTitleNoName: 'Danke!',
+      thanksSub: '{payer} bekommt eine Nachricht und hakt es ab, sobald es da ist.',
+      paidTitle: 'Alles bezahlt, danke!',
+      paidSub: '{payer} hat deinen Anteil an {merchant} abgehakt.',
+      paidSubNoMerchant: '{payer} hat deinen Anteil abgehakt.',
+      badTitle: 'Dieser Link funktioniert nicht',
+      badSub: 'Frag die Person, die gezahlt hat, ob sie ihn noch mal schickt.',
+      errorTitle: 'Das ließ sich nicht laden',
+      errorSub: 'Prüfe deine Verbindung und versuche es noch mal.',
+      retry: 'Erneut versuchen',
+      never: 'SplitSmart hat nie Zugriff auf dein Geld.',
+      privacy: 'Datenschutz'
     }
   }[lang];
 
@@ -124,15 +216,16 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = t(el.dataset.t); });
 
   // ---------------------------------------------------------------- formatting
-  var locale = lang === 'nl' ? 'nl-NL' : 'en-GB';
-  // Like the app: symbol, a space after a letter symbol ("R 140.00"), the currency's own digits.
+  var locale = lang === 'nl' ? 'nl-NL' : lang === 'es' ? 'es-ES' : lang === 'de' ? 'de-DE' : 'en-GB';
+  // Like the app: symbol, a space after a letter symbol ("R 140.00"), the currency's own digits. es, de: "140,00 R",
+  // "1.234,56 €" (grouping always, like the app; es-ES leaves four digits ungrouped by default).
   function money(minor, currency) {
     var d = PL.digits(currency);
     var value = minor / Math.pow(10, d);
     var parts;
     try {
       parts = new Intl.NumberFormat(locale, { style: 'currency', currency: currency, currencyDisplay: 'narrowSymbol',
-        minimumFractionDigits: d, maximumFractionDigits: d }).formatToParts(value);
+        minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: lang === 'es' || lang === 'de' ? 'always' : true }).formatToParts(value);
     } catch (e) {
       return currency + ' ' + PL.amount(minor, currency);
     }
@@ -144,10 +237,10 @@
     });
     return out;
   }
-  // A plain amount for a bank app's amount field: "7,25" (nl) / "7.25" (en), no symbol, no grouping.
+  // A plain amount for a bank app's amount field: "7,25" (nl, es, de) / "7.25" (en), no symbol, no grouping.
   function plainAmount(minor, currency) {
     var s = PL.amount(minor, currency);
-    return lang === 'nl' ? s.replace('.', ',') : s;
+    return lang === 'en' ? s : s.replace('.', ',');
   }
   function shortDate(iso) {
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');

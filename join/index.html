@@ -33,36 +33,99 @@ small { color:var(--muted); font-size:14px; }
 <body>
 <main>
   <svg width="88" height="94" viewBox="0 0 58 62" role="img" aria-label="Splitty, the SplitSmart mascot"><ellipse cx="29" cy="58" rx="16" ry="3" fill="#E5E5EA"/><circle cx="29" cy="29" r="25" fill="#0055D4"/><circle cx="29" cy="29" r="19" fill="none" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="2.5"/><path d="M17 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M33 26c2-3 6-3 8 0" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M20 34c4 7 14 7 18 0z" fill="#FFFFFF"/></svg>
-  <h1 id="title">You're invited to a group</h1>
-  <p id="sub">Open SplitSmart to join and split costs together.</p>
+  <h1 id="title" data-t="title">You're invited to a group</h1>
+  <p id="sub" data-t="sub">Open SplitSmart to join and split costs together.</p>
   <div class="code" id="code" aria-label="Invite code">······</div>
-  <a class="btn primary" id="open" href="#">OPEN IN SPLITSMART</a>
-  <button class="btn secondary" id="copy" type="button">COPY CODE</button>
+  <a class="btn primary" id="open" href="#" data-t="open">OPEN IN SPLITSMART</a>
+  <button class="btn secondary" id="copy" type="button" data-t="copy">COPY CODE</button>
   <div class="steps">
-    <strong>No app yet?</strong>
-    <span>1. Ask the person who invited you for a SplitSmart beta invite (TestFlight).</span>
-    <span>2. Open SplitSmart, tap <b>+</b> → <b>Join with a code</b> and enter the code above.</span>
+    <strong data-t="noApp">No app yet?</strong>
+    <span data-t="step1">1. Ask the person who invited you for a SplitSmart beta invite (TestFlight).</span>
+    <span id="step2">2. Open SplitSmart, tap <b>+</b> → <b>Join with a code</b> and enter the code above.</span>
   </div>
-  <small><a href="../" style="color:var(--accent)">What is SplitSmart?</a> · <a href="../privacy/" style="color:var(--accent)">Privacy</a></small>
+  <small><a href="../" style="color:var(--accent)" data-t="what">What is SplitSmart?</a> · <a href="../privacy/" style="color:var(--accent)" data-t="privacy">Privacy</a></small>
 </main>
 <script>
 (function () {
   var q = new URLSearchParams(location.search);
+  // Language: &lang=nl|en|es|de, else the browser's (es* → es, de* → de, nl* → nl), else en. Spanish:
+  // design/glossary-es.md, German: design/glossary-de.md.
+  var lang = (function () {
+    var forced = (q.get('lang') || '').toLowerCase();
+    if (forced === 'nl' || forced === 'en' || forced === 'es' || forced === 'de') return forced;
+    var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+    for (var i = 0; i < list.length; i++) {
+      var l = String(list[i]).toLowerCase();
+      if (l.indexOf('nl') === 0) return 'nl';
+      if (l.indexOf('es') === 0) return 'es';
+      if (l.indexOf('de') === 0) return 'de';
+      if (l.indexOf('en') === 0) return 'en';
+    }
+    return 'en';
+  })();
+  var T = {
+    en: {
+      doc: 'Join a group · SplitSmart', docGroup: 'Join {group} · SplitSmart', title: "You're invited to a group",
+      titleGroup: 'Join {group}', sub: 'Open SplitSmart to join and split costs together.', codeLabel: 'Invite code',
+      open: 'OPEN IN SPLITSMART', copy: 'COPY CODE', copied: 'COPIED', noApp: 'No app yet?',
+      step1: '1. Ask the person who invited you for a SplitSmart beta invite (TestFlight).',
+      step2: '2. Open SplitSmart, tap <b>+</b> → <b>Join with a code</b> and enter the code above.',
+      what: 'What is SplitSmart?', privacy: 'Privacy', mascot: 'Splitty, the SplitSmart mascot', noCode: 'No code',
+      missing: 'This link is missing its invite code. Ask for a new invite.'
+    },
+    nl: {
+      doc: 'Doe mee met een groep · SplitSmart', docGroup: 'Doe mee met {group} · SplitSmart',
+      title: 'Je bent uitgenodigd voor een groep', titleGroup: 'Doe mee met {group}',
+      sub: 'Open SplitSmart om mee te doen en samen kosten te delen.', codeLabel: 'Uitnodigingscode',
+      open: 'OPEN IN SPLITSMART', copy: 'KOPIEER CODE', copied: 'GEKOPIEERD', noApp: 'Nog geen app?',
+      step1: '1. Vraag degene die je uitnodigde om een uitnodiging voor de SplitSmart-bèta (TestFlight).',
+      step2: '2. Open SplitSmart, tik op <b>+</b>, kies meedoen met een code en vul de code hierboven in.',
+      what: 'Wat is SplitSmart?', privacy: 'Privacy', mascot: 'Splitty, de mascotte van SplitSmart', noCode: 'Geen code',
+      missing: 'Deze link mist de uitnodigingscode. Vraag om een nieuwe uitnodiging.'
+    },
+    es: {
+      doc: 'Únete a un grupo · SplitSmart', docGroup: 'Únete a {group} · SplitSmart',
+      title: 'Tienes una invitación a un grupo', titleGroup: 'Únete a {group}',
+      sub: 'Abre SplitSmart para unirte y repartir gastos entre todos.', codeLabel: 'Código de invitación',
+      open: 'ABRIR EN SPLITSMART', copy: 'COPIAR CÓDIGO', copied: 'COPIADO', noApp: '¿Aún no tienes la app?',
+      step1: '1. Pide a quien te invitó una invitación a la beta de SplitSmart (TestFlight).',
+      step2: '2. Abre SplitSmart, toca <b>+</b>, elige unirte con un código y escribe el código de arriba.',
+      what: '¿Qué es SplitSmart?', privacy: 'Privacidad', mascot: 'Splitty, la mascota de SplitSmart', noCode: 'Sin código',
+      missing: 'A este enlace le falta el código de invitación. Pide una invitación nueva.'
+    },
+    de: {
+      doc: 'Einladung in eine Gruppe · SplitSmart', docGroup: 'Mach mit bei {group} · SplitSmart',
+      title: 'Du bist in eine Gruppe eingeladen', titleGroup: 'Mach mit bei {group}',
+      sub: 'Öffne SplitSmart, um mitzumachen und Kosten gemeinsam aufzuteilen.', codeLabel: 'Einladungscode',
+      open: 'IN SPLITSMART ÖFFNEN', copy: 'CODE KOPIEREN', copied: 'KOPIERT', noApp: 'Noch keine App?',
+      step1: '1. Frag die Person, die dich eingeladen hat, nach einer Einladung zur SplitSmart-Beta (TestFlight).',
+      step2: '2. Öffne SplitSmart, tippe auf <b>+</b> → <b>Mit Code beitreten</b> und gib den Code oben ein.',
+      what: 'Was ist SplitSmart?', privacy: 'Datenschutz', mascot: 'Splitty, das Maskottchen von SplitSmart', noCode: 'Kein Code',
+      missing: 'Diesem Link fehlt der Einladungscode. Frag nach einer neuen Einladung.'
+    }
+  }[lang];
+  function t(key, group) { return T[key].replace('{group}', group || ''); }
+  document.documentElement.lang = lang;
+  document.title = T.doc;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = T[el.dataset.t]; });
+  document.getElementById('step2').innerHTML = T.step2; // static text from T only, never the query
+  document.getElementById('code').setAttribute('aria-label', T.codeLabel);
+  document.querySelector('main > svg').setAttribute('aria-label', T.mascot);
   var code = (q.get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
   var group = (q.get('g') || '').slice(0, 60);
   var codeEl = document.getElementById('code');
   var open = document.getElementById('open');
   if (!code) {
-    codeEl.textContent = 'No code';
+    codeEl.textContent = T.noCode;
     open.hidden = true;
     document.getElementById('copy').hidden = true;
-    document.getElementById('sub').textContent = 'This link is missing its invite code. Ask for a new invite.';
+    document.getElementById('sub').textContent = T.missing;
     return;
   }
   codeEl.textContent = code;
   if (group) {
-    document.getElementById('title').textContent = 'Join ' + group;
-    document.title = 'Join ' + group + ' · SplitSmart';
+    document.getElementById('title').textContent = t('titleGroup', group);
+    document.title = t('docGroup', group);
   }
   var app = 'splitsmart://join/' + encodeURIComponent(code);
   open.href = app;
@@ -70,7 +133,7 @@ small { color:var(--muted); font-size:14px; }
   setTimeout(function () { location.href = app; }, 300);
   document.getElementById('copy').addEventListener('click', function () {
     var b = this;
-    var done = function () { b.textContent = 'COPIED'; setTimeout(function () { b.textContent = 'COPY CODE'; }, 1600); };
+    var done = function () { b.textContent = T.copied; setTimeout(function () { b.textContent = T.copy; }, 1600); };
     if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, function () { selectCode(); });
     else selectCode();
   });
