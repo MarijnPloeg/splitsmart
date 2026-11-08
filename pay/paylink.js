@@ -37,6 +37,40 @@
     return /^[a-z0-9._-]{2,32}$/.test(s) ? s : null;
   }
 
+  // Build 36: a PayPal.me name (own field; a pasted paypal.me link is fine), a Revtag, a SnapCode.
+  function firstSegment(raw, hosts) {
+    if (raw == null) return null;
+    var s = String(raw).trim(), cut = s.search(/[?#]/);
+    if (cut !== -1) s = s.slice(0, cut);
+    s = s.replace(/^https?:\/\//i, '');
+    var parts = s.split('/').filter(function (x) { return x.length > 0; });
+    if (!parts.length) return null;
+    var first = parts[0];
+    if (parts.length > 1 || hosts.indexOf(first.toLowerCase()) !== -1) {
+      if (hosts.indexOf(first.toLowerCase()) === -1 || parts.length < 2) return null;
+      return parts[1];
+    }
+    return first.charAt(0) === '@' ? first.slice(1) : first;
+  }
+  function payPalName(raw) { var n = firstSegment(raw, ['paypal.me', 'www.paypal.me']); return n && isPayPalName(n) ? n : null; }
+  function revtag(raw) {
+    var n = firstSegment(raw == null ? null : String(raw).toLowerCase(), ['revolut.me', 'www.revolut.me']);
+    return n && /^[a-z0-9._-]{3,32}$/.test(n) ? n : null;
+  }
+  function snapCode(raw) {
+    if (raw == null) return null;
+    var s = String(raw).trim(), cut = s.search(/[?#]/);
+    if (cut !== -1) s = s.slice(0, cut);
+    s = s.replace(/^https?:\/\//i, '');
+    var parts = s.split('/').filter(function (x) { return x.length > 0; });
+    if (parts.length > 1) {
+      if (parts.shift().toLowerCase() !== 'pos.snapscan.io') return null;
+      if (parts.length === 2 && parts[0].toLowerCase() === 'qr') parts.shift();
+    }
+    return parts.length === 1 && /^[A-Za-z0-9]{4,32}$/.test(parts[0]) ? parts[0] : null;
+  }
+  var PAYPAL_CURRENCIES = ['AUD','BRL','CAD','CNY','CZK','DKK','EUR','HKD','HUF','ILS','JPY','MYR','MXN','TWD','NZD','NOK','PHP','PLN','GBP','SGD','SEK','CHF','THB','USD'];
+
   function isPayPalName(name) { return /^[A-Za-z0-9]{1,20}$/.test(name); }
 
   // {kind:'payPalMe', name} | {kind:'link', url} | null
@@ -60,11 +94,27 @@
   }
 
   // The payer's methods, best first: bunq.me, then the other link. Blank or invalid entries are left out.
-  function methods(bunqMe, otherLink) {
-    var out = [], h = bunqHandle(bunqMe), l = linkMethod(otherLink);
-    if (h) out.push({ kind: 'bunqMe', handle: h });
-    if (l) out.push(l);
-    return out;
+  // `more` (build 36): {paypal, revolut, snapscan} from the payout. Order as the app's ladder (Domain PayRailRegion) for
+  // `currency`: euro bunq.me → Revolut → PayPal.me → link; rand SnapScan → bunq.me → Revolut → PayPal.me → link; others
+  // Revolut → bunq.me → PayPal.me → link. Without `more` and `currency` it is the old bunq.me, then the other link.
+  function methods(bunqMe, otherLink, more, currency) {
+    more = more || {};
+    var h = bunqHandle(bunqMe), l = linkMethod(otherLink);
+    var pp = payPalName(more.paypal) || (l && l.kind === 'payPalMe' ? l.name : null);
+    var plain = l && l.kind === 'link' ? l : null;
+    var rv = revtag(more.revolut), sc = snapCode(more.snapscan);
+    var cur = String(currency || 'EUR').toUpperCase();
+    var by = {
+      snapScan: sc && cur === 'ZAR' ? { kind: 'snapScan', code: sc } : null,
+      bunqMe: h ? { kind: 'bunqMe', handle: h } : null,
+      revolut: rv ? { kind: 'revolut', name: rv } : null,
+      payPalMe: pp ? { kind: 'payPalMe', name: pp } : null,
+      link: plain
+    };
+    var order = cur === 'EUR' ? ['bunqMe', 'revolut', 'payPalMe', 'link']
+      : cur === 'ZAR' ? ['snapScan', 'bunqMe', 'revolut', 'payPalMe', 'link']
+      : ['revolut', 'bunqMe', 'payPalMe', 'link'];
+    return order.map(function (k) { return by[k]; }).filter(Boolean);
   }
 
   // The euros bunq.me can ask for, or null.
@@ -74,7 +124,7 @@
     return null;
   }
 
-  function url(method, amountMinor, currency, approxMinor, approxCurrency) {
+  function url(method, amountMinor, currency, approxMinor, approxCurrency, reference) {
     switch (method.kind) {
       case 'bunqMe': {
         var h = bunqHandle(method.handle);
@@ -85,8 +135,21 @@
       }
       case 'payPalMe':
         if (!isPayPalName(method.name)) return null;
-        if (!(amountMinor > 0)) return 'https://paypal.me/' + method.name;
-        return 'https://paypal.me/' + method.name + '/' + amount(amountMinor, currency) + String(currency).toUpperCase();
+        var ask = null;
+        if (PAYPAL_CURRENCIES.indexOf(String(currency).toUpperCase()) !== -1) ask = [amountMinor, String(currency).toUpperCase()];
+        else if (approxCurrency && PAYPAL_CURRENCIES.indexOf(String(approxCurrency).toUpperCase()) !== -1 && approxMinor != null)
+          ask = [approxMinor, String(approxCurrency).toUpperCase()];
+        if (!ask || !(ask[0] > 0)) return 'https://paypal.me/' + method.name;
+        return 'https://paypal.me/' + method.name + '/' + amount(ask[0], ask[1]) + ask[1];
+      case 'revolut':
+        return revtag(method.name) ? 'https://revolut.me/' + revtag(method.name) : null;
+      case 'snapScan': {
+        var code = snapCode(method.code);
+        if (!code) return null;
+        var base = 'https://pos.snapscan.io/qr/' + code;
+        if (String(currency).toUpperCase() !== 'ZAR' || !(amountMinor > 0)) return base;
+        return base + '?amount=' + Math.trunc(amountMinor) + (reference ? '&id=' + encodeURIComponent(reference) : '');
+      }
       case 'link':
         return method.url;
       default:
@@ -94,7 +157,7 @@
     }
   }
 
-  var api = { digits: digits, amount: amount, bunqHandle: bunqHandle, linkMethod: linkMethod, methods: methods,
+  var api = { payPalCurrencies: PAYPAL_CURRENCIES, digits: digits, amount: amount, bunqHandle: bunqHandle, payPalName: payPalName, revtag: revtag, snapCode: snapCode, linkMethod: linkMethod, methods: methods,
     euros: euros, url: url };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.SplitSmartPayLink = api;
 })(typeof window !== 'undefined' ? window : this);

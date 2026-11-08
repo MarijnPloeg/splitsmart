@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Back to SplitSmart</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0055D4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 58 58'%3E%3Ccircle cx='29' cy='29' r='27' fill='%230055D4'/%3E%3Ccircle cx='21' cy='25' r='3.6' fill='%23fff'/%3E%3Ccircle cx='37' cy='25' r='3.6' fill='%23fff'/%3E%3Cpath d='M21 35c4 4.5 12 4.5 16 0' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root { --bg:#FFFFFF; --fg:#1C1C1E; --muted:#5E5E66; --accent:#0055D4; --accent-deep:#003A94; }
+@media (prefers-color-scheme: dark) { :root { --bg:#111214; --fg:#EDEDF0; --muted:#A1A1AA; --accent:#3D7BFF; --accent-deep:#1F4FB8; color-scheme: dark } }
+body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.5 -apple-system, system-ui, sans-serif; padding:0 20px; }
+main { max-width:440px; margin:0 auto; padding-block:72px 48px; display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; }
+h1 { margin:0; font:900 30px/1.15 ui-rounded, 'Nunito', sans-serif; text-wrap:balance; }
+p { margin:0; color:var(--muted); }
+.btn { display:flex; align-items:center; justify-content:center; width:100%; height:58px; border-radius:18px; text-decoration:none; font:900 18px/1 ui-rounded, 'Nunito', sans-serif; letter-spacing:.4px; box-sizing:border-box; background:var(--accent); color:#fff; box-shadow:0 5px 0 var(--accent-deep); }
+.btn:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+[hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1 data-t="title">Back to SplitSmart</h1>
+  <p data-t="sub">Stripe sent you here. Open SplitSmart to see if your Apple Pay is ready.</p>
+  <a class="btn" id="open" href="#" data-t="open">OPEN SPLITSMART</a>
+  <p><small data-t="hint">Nothing is paid or stored on this page.</small></p>
+</main>
+<script>
+// Hands the person back to the app (splitsmart://pay/stripe-return, with ?refresh=1 when Stripe's link ran out).
+// The app reads the account's state itself.
+(function () {
+  var q = new URLSearchParams(location.search);
+  var refresh = q.get('refresh') === '1';
+  var text = {
+    en: { title: 'Back to SplitSmart', sub: 'Stripe sent you here. Open SplitSmart to see if your Apple Pay is ready.', open: 'OPEN SPLITSMART', hint: 'Nothing is paid or stored on this page.' },
+    nl: { title: 'Terug naar SplitSmart', sub: 'Stripe stuurde je hierheen. Open SplitSmart om te zien of je Apple Pay klaar is.', open: 'OPEN SPLITSMART', hint: 'Op deze pagina wordt niets betaald of bewaard.' },
+    es: { title: 'Vuelve a SplitSmart', sub: 'Stripe te ha traído aquí. Abre SplitSmart para ver si tu Apple Pay está listo.', open: 'ABRIR SPLITSMART', hint: 'En esta página no se paga ni se guarda nada.' },
+    de: { title: 'Zurück zu SplitSmart', sub: 'Stripe hat dich hierher geschickt. Öffne SplitSmart, um zu sehen, ob dein Apple Pay bereit ist.', open: 'SPLITSMART ÖFFNEN', hint: 'Auf dieser Seite wird nichts bezahlt oder gespeichert.' }
+  };
+  var lang = (function () {
+    var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+    for (var i = 0; i < list.length; i++) {
+      var l = String(list[i]).toLowerCase().slice(0, 2);
+      if (text[l]) return l;
+    }
+    return 'en';
+  })();
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = text[lang][el.getAttribute('data-t')]; });
+  var target = 'splitsmart://pay/stripe-return' + (refresh ? '?refresh=1' : '');
+  document.getElementById('open').href = target;
+  setTimeout(function () { location.href = target; }, 150);
+})();
+</script>
+</body>
+</html>

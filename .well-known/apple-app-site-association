@@ -1,0 +1,34 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "2XB9U654FL.app.splitsmart.ios",
+          "2XB9U654FL.app.splitsmart.ios.Clip"
+        ],
+        "components": [
+          {
+            "/": "/pay/return*",
+            "comment": "Build 35: the bank sends the payer back to the app or the App Clip with ?p=<payment id>"
+          }
+        ]
+      },
+      {
+        "appIDs": [
+          "2XB9U654FL.app.splitsmart.ios"
+        ],
+        "components": [
+          {
+            "/": "/pay/stripe-return*",
+            "comment": "Build 37: Stripe's onboarding sends the payee back to the app (Get paid to > Apple Pay & cards)"
+          }
+        ]
+      }
+    ]
+  },
+  "appclips": {
+    "apps": [
+      "2XB9U654FL.app.splitsmart.ios.Clip"
+    ]
+  }
+}

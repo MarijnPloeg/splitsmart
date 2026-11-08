@@ -55,6 +55,9 @@
       qr: 'Scan with your banking app',
       qrLabel: 'Payment QR code for your banking app',
       paypal: 'PayPal',
+      snapscan: 'SnapScan',
+      revolut: 'Revolut',
+      revolutSub: 'Opens Revolut · amount copied',
       linkTitle: 'Pay link',
       linkSub: '{host} · type in {amount}',
       noMethods: "{payer} hasn't added a way to pay here yet. Ask how they'd like it, then tap I've paid.",
@@ -99,6 +102,9 @@
       qr: 'Scan met je bank-app',
       qrLabel: 'Betaal-QR-code voor je bank-app',
       paypal: 'PayPal',
+      snapscan: 'SnapScan',
+      revolut: 'Revolut',
+      revolutSub: 'Opent Revolut · bedrag gekopieerd',
       linkTitle: 'Betaallink',
       linkSub: '{host} · vul {amount} in',
       noMethods: '{payer} heeft hier nog geen manier om te betalen ingesteld. Vraag hoe het het makkelijkst is en tik daarna op Ik heb betaald.',
@@ -143,6 +149,9 @@
       qr: 'Escanéala con la app de tu banco',
       qrLabel: 'Código QR de pago para la app de tu banco',
       paypal: 'PayPal',
+      snapscan: 'SnapScan',
+      revolut: 'Revolut',
+      revolutSub: 'Abre Revolut · importe copiado',
       linkTitle: 'Enlace de pago',
       linkSub: '{host} · escribe {amount}',
       noMethods: '{payer} todavía no tiene aquí una forma de pago. Pregúntale cómo lo prefiere y después toca Ya está pagado.',
@@ -187,6 +196,9 @@
       qr: 'Scanne ihn mit deiner Banking-App',
       qrLabel: 'QR-Code zum Bezahlen mit deiner Banking-App',
       paypal: 'PayPal',
+      snapscan: 'SnapScan',
+      revolut: 'Revolut',
+      revolutSub: 'Öffnet Revolut · Betrag kopiert',
       linkTitle: 'Zahlungslink',
       linkSub: '{host} · {amount} eintippen',
       noMethods: '{payer} hat hier noch keine Zahlungsart eingerichtet. Frag, wie es am einfachsten geht, und tippe danach auf Ich habe bezahlt.',
@@ -256,7 +268,7 @@
   var DEMO = {
     payer_name: 'Marijn', merchant: 'Tally ho farm', bill_date: new Date().toISOString().slice(0, 10), guest_name: 'Rens',
     share_minor: 14000, currency: 'ZAR', approx_minor: 725, approx_currency: 'EUR', paid: false, said_paid: false,
-    payout: { bunq_me: 'marijnploeg', iban: 'NL91ABNA0417164300', account_holder: 'M. Ploeg', other_link: 'paypal.me/MarijnPloeg' }
+    payout: { bunq_me: 'marijnploeg', iban: 'NL91ABNA0417164300', account_holder: 'M. Ploeg', other_link: 'paypal.me/MarijnPloeg', revolut: 'marijn', snapscan: 'C9ufHzUb' }
   };
   function demoData() {
     var d = JSON.parse(JSON.stringify(DEMO));
@@ -362,11 +374,27 @@
     var p = d.payout || {};
     var share = money(d.share_minor, d.currency);
     var eur = PL.euros(d.share_minor, d.currency, d.approx_minor, d.approx_currency);
-    var methods = PL.methods(p.bunq_me, p.other_link);
+    var methods = PL.methods(p.bunq_me, p.other_link, { paypal: p.paypal, revolut: p.revolut, snapscan: p.snapscan }, d.currency);
     var bunq = methods.filter(function (m) { return m.kind === 'bunqMe'; })[0];
-    var other = methods.filter(function (m) { return m.kind !== 'bunqMe'; })[0];
+    var other = methods.filter(function (m) { return m.kind === 'payPalMe' || m.kind === 'link'; })[0];
+    var snap = methods.filter(function (m) { return m.kind === 'snapScan'; })[0];
+    var revolut = methods.filter(function (m) { return m.kind === 'revolut'; })[0];
     var any = false;
 
+    if (snap) {
+      any = true;
+      box.appendChild(methodCard({ href: PL.url(snap, d.share_minor, d.currency, d.approx_minor, d.approx_currency, 'SS-' + code),
+        iconText: 'SS', title: T.snapscan, sub: t('filledIn', { amount: share }) }));
+    }
+    if (revolut) {
+      any = true;
+      var revCard = methodCard({ href: PL.url(revolut, d.share_minor, d.currency), iconText: 'R', title: T.revolut, sub: T.revolutSub });
+      // The link can't carry the amount: it is copied when the card is tapped.
+      revCard.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(plainAmount(d.share_minor, d.currency)).catch(function () {});
+      });
+      box.appendChild(revCard);
+    }
     if (bunq) {
       any = true;
       var filled = eur != null && eur > 0;
@@ -420,7 +448,7 @@
       var otherUrl = PL.url(other, d.share_minor, d.currency, d.approx_minor, d.approx_currency);
       if (other.kind === 'payPalMe') {
         box.appendChild(methodCard({ href: otherUrl, iconText: 'PP', title: T.paypal,
-          sub: d.share_minor > 0 ? t('filledIn', { amount: share }) : '' }));
+          sub: d.share_minor > 0 ? t('filledIn', { amount: (PL.payPalCurrencies.indexOf(String(d.currency).toUpperCase()) === -1 && hasApprox ? money(d.approx_minor, d.approx_currency) : share) }) : '' }));
       } else {
         box.appendChild(methodCard({ href: otherUrl,
           icon: svgIcon(['M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1', 'M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1']),
