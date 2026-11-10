@@ -4,95 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SplitSmart · Terms of Use</title>
-<meta name="theme-color" content="#0055D4">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Source+Sans+3:wght@400;600&display=swap">
-<style>
-/* Layout: one calm reading column, a sticky two-tab switcher, sections as plain numbered legal clauses */
-:root {
-  --bg: #FFFFFF; --fg: #1C1C1E; --muted: #5E5E66; --line: #E5E5EA; --accent: #0055D4; --accent-soft: #EAF1FD;
-  --display: 'Nunito', ui-rounded, system-ui, sans-serif;
-  --body: 'Source Sans 3', -apple-system, 'Segoe UI', system-ui, sans-serif;
-}
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #111214; --fg: #EDEDF0; --muted: #A1A1AA; --line: #2C2D31; --accent: #6EA2FF; --accent-soft: #17233A; color-scheme: dark } }
-:root[data-theme="dark"] { --bg: #111214; --fg: #EDEDF0; --muted: #A1A1AA; --line: #2C2D31; --accent: #6EA2FF; --accent-soft: #17233A; color-scheme: dark }
-body { background: var(--bg); color: var(--fg); font: 17px/1.6 var(--body); padding: 0 20px; }
-.wrap { max-width: 680px; margin: 0 auto; padding-block: 40px 72px; display: flex; flex-direction: column; gap: 28px; }
-header { display: flex; flex-direction: column; gap: 10px; }
-.brand { display: flex; align-items: center; gap: 10px; font: 900 20px/1 var(--display); color: var(--accent); }
-.brand svg { flex-shrink: 0; }
-h1 { font: 900 clamp(30px, 6vw, 40px)/1.1 var(--display); margin: 0; letter-spacing: -0.5px; text-wrap: balance; }
-.meta { color: var(--muted); font-size: 15px; margin: 0; }
-nav { position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); display: flex; gap: 8px; flex-wrap: wrap; z-index: 1; }
-nav a { font: 800 15px/1 var(--display); color: var(--accent); text-decoration: none; padding: 9px 14px; border-radius: 999px; background: var(--accent-soft); }
-nav a:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-section { display: flex; flex-direction: column; gap: 14px; scroll-margin-top: 70px; }
-h2 { font: 900 28px/1.2 var(--display); margin: 12px 0 0; }
-h3 { font: 800 19px/1.3 var(--display); margin: 14px 0 0; }
-p, ul { margin: 0; }
-ul { padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
-.summary { background: var(--accent-soft); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
-.summary strong { font-family: var(--display); font-weight: 900; }
-table { border-collapse: collapse; width: 100%; font-size: 15px; }
-.scroll { overflow-x: auto; }
-th, td { text-align: left; vertical-align: top; padding: 9px 10px 9px 0; border-bottom: 1px solid var(--line); }
-th { font-weight: 600; color: var(--muted); font-size: 13px; letter-spacing: 0.4px; text-transform: uppercase; }
-td:first-child { font-weight: 600; min-width: 120px; }
-.mail { font-weight: 600; user-select: all; }
-hr { border: 0; border-top: 1px solid var(--line); margin: 16px 0 0; }
-footer { color: var(--muted); font-size: 14px; }
-</style>
-<!-- Cookieless visit counts (TelemetryDeck); the App ID lives only in site/analytics.js -->
+<meta name="description" content="The terms for using SplitSmart, including card payments through Stripe.">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 58 58'%3E%3Ccircle cx='29' cy='29' r='27' fill='%230055D4'/%3E%3Ccircle cx='21' cy='25' r='3.6' fill='%23fff'/%3E%3Ccircle cx='37' cy='25' r='3.6' fill='%23fff'/%3E%3Cpath d='M21 35c4 4.5 12 4.5 16 0' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="https://getsplitsmart.com/terms/">
+<link rel="alternate" hreflang="nl" href="https://getsplitsmart.com/terms/nl/">
+<link rel="stylesheet" href="../site.css">
+<!-- Cookieless visit counts (TelemetryDeck); the App ID lives only in analytics.js -->
 <script src="../analytics.js" defer></script>
 </head>
 <body>
-<div class="wrap">
+<div class="doc">
   <header>
-    <a class="brand" href="../" style="text-decoration:none"><svg width="28" height="28" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="27" fill="currentColor"/><circle cx="21" cy="25" r="3.6" fill="#fff"/><circle cx="37" cy="25" r="3.6" fill="#fff"/><path d="M21 35c4 4.5 12 4.5 16 0" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>SplitSmart</a>
+    <a class="brand" href="../"><svg width="28" height="28" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="27" fill="currentColor"/><circle cx="21" cy="25" r="3.6" fill="#fff"/><circle cx="37" cy="25" r="3.6" fill="#fff"/><path d="M21 35c4 4.5 12 4.5 16 0" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>SplitSmart</a>
     <h1>Terms of Use</h1>
-    <p class="meta">Last updated 18 October 2026 · Applies to the SplitSmart iOS app and its App Clip</p>
-  
+    <p class="meta">Last updated 9 November 2026 · Applies to the SplitSmart iOS app and its App Clip</p>
   </header>
-  <nav aria-label="Pages"><a href="../">Home</a><a href="../privacy/">Privacy Policy</a><a href="../support/">Support</a></nav>
-  <section id="terms" aria-labelledby="terms-h">
-    <h2 id="terms-h">Terms of Use</h2>
+  <nav class="tabs" aria-label="Pages"><a href="../">Home</a><a href="../privacy/">Privacy</a><a href="./" aria-current="page">Terms</a><a href="../support/">Support</a><a class="lang" href="nl/" hreflang="nl" lang="nl">Nederlands</a></nav>
+
+  <section aria-label="Terms of Use">
     <div class="summary">
       <strong>In short</strong>
-      <p>SplitSmart is a free tool that keeps track of who paid what. It is not a bank and doesn't move money. Check the amounts before you pay, and be kind to the people in your groups.</p>
+      <p>SplitSmart is a free tool that keeps track of who paid what and helps friends pay each other back. It is not a bank. Scans and suggestions only propose: you confirm every split and every payment. Check the amounts before you pay, and be kind to the people in your groups.</p>
     </div>
 
-    <h3>1. The service</h3>
-    <p>SplitSmart lets you record shared expenses, split them, scan receipts and see who owes whom. The app is currently free. Features may change, and the service may occasionally be unavailable.</p>
+    <h2 id="service">1. The service</h2>
+    <p>SplitSmart lets you record shared expenses, split them, scan receipts, see who owes whom and share how you'd like to be paid back. The app is free. Features may change, and the service may occasionally be unavailable.</p>
 
-    <h3>2. Not a financial service</h3>
-    <p>SplitSmart does not hold, transfer or guarantee money, and is not a bank, payment institution or financial adviser. Payments happen outside the app, through your own bank or payment app. Bank connections are read-only and only suggest expenses, and Apple Pay suggestions and Shortcuts actions ask before they save anything; you decide what is saved.</p>
+    <h2 id="not-a-bank">2. Not a bank</h2>
+    <p>SplitSmart does not hold or guarantee money, and is not a bank, payment institution or financial adviser. Most payments happen outside the app: friends pay you with your IBAN, a payment QR code or a payment link (such as bunq.me, Revolut, PayPal.me, SnapScan or Tikkie) in their own bank or payment app, and you mark it as paid. When you use Apple Pay in SplitSmart, the payment is processed by Stripe, a licensed payment provider, as described in section 3.</p>
 
-    <h3>3. Check the numbers</h3>
-    <p>Receipt scanning, currency conversion and suggestions are automated and can be wrong. You are responsible for checking amounts before saving or paying them. Exchange rates come from the European Central Bank or from the amount you enter. Insights and trip budgets are for your own information only and never change a split.</p>
-
-    <h3>4. Your account and content</h3>
+    <h2 id="cards">3. Card payments through Stripe (when you use Apple Pay in SplitSmart)</h2>
+    <p>Paying a share with Apple Pay is being prepared and is not yet available to everyone. When it is, these rules apply.</p>
     <ul>
-      <li>You need an Apple ID to sign in. Keep your device secure.</li>
-      <li>You keep ownership of what you add, such as expenses, photos and notes. You give us permission to store and show it to the members of your groups, only to run the service.</li>
-      <li>Only add other people's names, photos or payment details when you have a good reason to and they would expect it.</li>
+      <li><strong>Who processes it.</strong> Card payments are processed by Stripe through Stripe Connect. The money goes from the payer's card through Stripe to the Stripe account of the person being paid; SplitSmart never holds it. SplitSmart is the platform that starts the payment.</li>
+      <li><strong>Receiving payments.</strong> To receive card payments you set up a Stripe account in the app and agree to the <a href="https://stripe.com/legal/connect-account" rel="noopener">Stripe Connected Account Agreement</a>, which includes the <a href="https://stripe.com/legal/ssa" rel="noopener">Stripe Services Agreement</a>. Stripe verifies who you are and pays out to your bank account on its schedule. Stripe may ask for more information, pause payouts or refuse an account under its own rules.</li>
+      <li><strong>The service fee.</strong> The person paying pays a service fee on top of the share. It is currently 5% of the share, at least &euro;1.49 and at most &euro;3.99 (other currencies have similar limits, such as &pound;1.29 to &pound;3.49, $1.69 to $4.49 and R30 to R79). The fee is always shown before you pay. The person being paid receives the full share; the fee goes to SplitSmart and covers Stripe's costs.</li>
+      <li><strong>Only for sharing costs.</strong> Card payments are meant for paying friends back for shared costs. Don't use them to sell goods or services, for gifts of money or for anything illegal.</li>
+      <li><strong>Refunds.</strong> A card payment is only made when you confirm it with Apple Pay. If a payment can't be used, for example because a guest changed their dishes after paying, SplitSmart refunds it in full, fee included, to the card. Other refunds you settle between yourselves.</li>
+      <li><strong>Disputes.</strong> If a payment is disputed with the card issuer or refunded, the payment is marked as not paid in SplitSmart again, so the share is open between you once more. SplitSmart handles the dispute with Stripe.</li>
+      <li><strong>Problems.</strong> If a card payment didn't arrive or looks wrong, email us. We'll look into it with Stripe.</li>
     </ul>
 
-    <h3>5. Acceptable use</h3>
+    <h2 id="check">4. Check the numbers</h2>
+    <p>Receipt scanning, currency conversion and suggestions are automated and can be wrong. They only suggest: nothing is saved, split or paid until you confirm it. You are responsible for checking amounts before saving or paying them. Exchange rates come from the European Central Bank or from the amount you enter. Insights and trip budgets are for your own information only and never change a split.</p>
+
+    <h2 id="account">5. Your account and content</h2>
+    <ul>
+      <li>You need an Apple Account to sign in. Keep your device secure.</li>
+      <li>You keep ownership of what you add, such as expenses, photos, documents and notes. You give us permission to store and show it to the members of your groups, only to run the service.</li>
+      <li>Only add other people's names, photos or payment details when you have a good reason to and they would expect it. Only add payment details that are yours.</li>
+    </ul>
+
+    <h2 id="use">6. Acceptable use</h2>
     <p>Don't use SplitSmart for anything illegal, to harass people, to upload content you have no right to share, or to attack or overload the service. We may suspend accounts that do.</p>
 
-    <h3>6. Liability</h3>
-    <p>We build SplitSmart with care, but it is provided as is. To the extent Dutch law allows, we are not liable for indirect damage or for losses caused by incorrect amounts, payments between users or services of third parties such as banks. Nothing in these terms limits liability that cannot be limited by law.</p>
+    <h2 id="liability">7. Liability</h2>
+    <p>We build SplitSmart with care, but it is provided as is. To the extent Dutch law allows, we are not liable for indirect damage or for losses caused by incorrect amounts, payments between users or services of third parties such as banks, payment apps or Stripe. Nothing in these terms limits liability that cannot be limited by law.</p>
 
-    <h3>7. Ending</h3>
-    <p>You can stop using SplitSmart and delete your account at any time in the app. We may end the service with reasonable notice in the app.</p>
+    <h2 id="ending">8. Ending</h2>
+    <p>You can stop using SplitSmart and delete your account at any time in the app. A Stripe account you set up stays with Stripe; you can close it there. We may end the service with reasonable notice in the app.</p>
 
-    <h3>8. Law</h3>
+    <h2 id="law">9. Law</h2>
     <p>These terms are governed by Dutch law. Disputes go to the competent court in the Netherlands, unless the law of your country gives you other mandatory rights.</p>
 
-    <h3>9. Contact</h3>
-    <p>Questions about these terms: <span class="mail">marijnploeg@gmail.com</span>.</p>
+    <h2 id="contact">10. Contact</h2>
+    <p>Questions about these terms: <a class="mail" href="mailto:marijnploeg@gmail.com">marijnploeg@gmail.com</a>.</p>
   </section>
-  <footer>SplitSmart · Marijn Ploeg · Netherlands · marijnploeg@gmail.com</footer>
+  <footer>SplitSmart · Marijn Ploeg · Netherlands · <a href="mailto:marijnploeg@gmail.com">marijnploeg@gmail.com</a></footer>
 </div>
 </body>
 </html>
