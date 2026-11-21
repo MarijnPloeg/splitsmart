@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Your share · SplitSmart</title>
 <meta name="robots" content="noindex, nofollow">
-<!-- The pay code is in the query: never hand it on (no Referer on links), no analytics, no web fonts, no third parties.
-     The only request this page makes is to our own Supabase project (guest_pay_page / guest_says_paid). -->
+<!-- The pay code is in the query: never hand it on (no Referer on links), no analytics, no web fonts. The page talks to
+     our own Supabase project (guest_pay_page / guest_says_paid / guest_undo_says_paid, stripe-pay) and, only for a card
+     payment (0044), Stripe (Express Checkout for Apple Pay / Google Pay, the Payment Element, 3-D Secure). -->
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://*.supabase.co http://127.0.0.1:54321 http://localhost:54321; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://js.stripe.com https://*.js.stripe.com; style-src 'self'; img-src 'self' data: https://*.stripe.com; font-src 'none'; connect-src https://*.supabase.co http://127.0.0.1:54321 http://localhost:54321 https://api.stripe.com; frame-src https://js.stripe.com https://*.js.stripe.com https://hooks.stripe.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
 <meta name="format-detection" content="telephone=no">
@@ -35,9 +36,27 @@
       <span class="share" id="share"></span>
     </div>
   </section>
+  <!-- 0044: pay by card with the service fee, Apple Pay / Google Pay first; the other ways one tap further. -->
+  <section class="card" id="card" hidden aria-live="polite">
+    <div class="ece" id="ece"></div>
+    <button class="btn primary" id="cardBtn" type="button" data-t="cardBtn">Pay by card</button>
+    <div class="pe" id="cardPanel" hidden>
+      <div id="pe"></div>
+      <button class="btn primary" id="cardConfirm" type="button"></button>
+    </div>
+    <p class="fee" id="feeLine"></p>
+    <p class="error" id="cardError" role="alert" hidden></p>
+    <button class="link" id="otherWays" type="button" data-t="otherWays">Other ways to pay</button>
+  </section>
   <h2 class="label" id="payLabel"></h2>
   <div class="methods" id="methods"></div>
   <button class="btn primary" id="paid" type="button" data-t="iPaid">I've paid</button>
+  <!-- 0043: one check before "I've paid" counts (Fancy Franks, 2026-11-17: tapped without paying). -->
+  <section class="confirm" id="confirm" hidden aria-live="polite">
+    <p id="confirmQ"></p>
+    <button class="btn primary" id="confirmYes" type="button" data-t="confirmYes">Yes, I've paid</button>
+    <button class="btn secondary" id="confirmNo" type="button" data-t="confirmNo">Not yet</button>
+  </section>
   <p class="error" id="paidError" role="alert" hidden></p>
 
   <!-- Thanks / all paid / broken link / can't load. -->
@@ -46,16 +65,18 @@
     <h1 id="stateTitle"></h1>
     <p id="stateSub"></p>
     <button class="btn primary" id="retry" type="button" data-t="retry" hidden>Try again</button>
+    <button class="link" id="undo" type="button" data-t="undo" hidden>Tapped that by mistake? Undo</button>
   </section>
 
   <div class="grow"></div>
   <footer>
-    <span data-t="never">SplitSmart never touches the money.</span>
+    <span id="never" data-t="never">SplitSmart never touches the money.</span>
     · <a href="../privacy/" rel="noreferrer" data-t="privacy">Privacy</a>
   </footer>
 </main>
 <script src="config.js"></script>
 <script src="paylink.js"></script>
+<script src="cardpay.js"></script>
 <script src="qr.js"></script>
 <script src="pay.js"></script>
 </body>

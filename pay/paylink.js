@@ -157,7 +157,40 @@
     }
   }
 
-  var api = { payPalCurrencies: PAYPAL_CURRENCIES, digits: digits, amount: amount, bunqHandle: bunqHandle, payPalName: payPalName, revtag: revtag, snapCode: snapCode, linkMethod: linkMethod, methods: methods,
+  // L9: the page's copy of Domain `AccountName.collapsed`: runs of whitespace and control characters
+  // ([\x00-\x1f\x7f], newlines included) become one space, ends trimmed, so a holder name or reference can't shift
+  // the EPC QR's lines (a newline in the name could otherwise put a different amount on the amount line).
+  function collapse(raw) {
+    if (raw == null) return '';
+    return String(raw).replace(/[\s\x00-\x1f\x7f]+/g, ' ').trim();
+  }
+
+  // The IBAN as one upper-case run of letters and digits, or null when it doesn't look like an IBAN.
+  function ibanClean(raw) {
+    if (raw == null) return null;
+    var s = String(raw).replace(/[\s\x00-\x1f\x7f]+/g, '').toUpperCase();
+    return /^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/.test(s) ? s : null;
+  }
+
+  // EPC069-12 "SEPA credit transfer" payload (version 002, UTF-8, SCT), as Domain `EPCQR.payload`: EUR only, amount
+  // EUR 0.01 … 999 999 999.99, name ≤ 70 and remittance ≤ 140 characters after collapsing, at most 331 bytes.
+  // null when any of that doesn't hold (the page then shows the copy fields only).
+  function epcPayload(holder, iban, amountMinor, reference) {
+    var name = collapse(holder).slice(0, 70), cleanIban = ibanClean(iban), text = collapse(reference).slice(0, 140);
+    if (!name || !cleanIban) return null;
+    if (typeof amountMinor !== 'number' || !isFinite(amountMinor) || Math.trunc(amountMinor) !== amountMinor) return null;
+    if (amountMinor < 1 || amountMinor > 99999999999) return null;
+    var lines = ['BCD', '002', '1', 'SCT', '', name, cleanIban, 'EUR' + amount(amountMinor, 'EUR'), '', '', text];
+    while (lines[lines.length - 1] === '') lines.pop();
+    var payload = lines.join('\n');
+    var bytes = typeof TextEncoder !== 'undefined' ? new TextEncoder().encode(payload).length : unescape(encodeURIComponent(payload)).length;
+    return bytes <= 331 ? payload : null;
+  }
+
+  // L4: guest pay codes are 8 (old) or 12 (new) characters from the code alphabet (no I, O, 0, 1).
+  function isPayCode(code) { return /^[A-HJ-NP-Z2-9]{8}(?:[A-HJ-NP-Z2-9]{4})?$/.test(String(code || '')); }
+
+  var api = { collapse: collapse, ibanClean: ibanClean, epcPayload: epcPayload, isPayCode: isPayCode, payPalCurrencies: PAYPAL_CURRENCIES, digits: digits, amount: amount, bunqHandle: bunqHandle, payPalName: payPalName, revtag: revtag, snapCode: snapCode, linkMethod: linkMethod, methods: methods,
     euros: euros, url: url };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.SplitSmartPayLink = api;
 })(typeof window !== 'undefined' ? window : this);

@@ -70,6 +70,19 @@ a { color: inherit; }
 .primary { background: var(--accent); color: #FFFFFF; box-shadow: 0 5px 0 var(--accent-deep); margin-top: 10px; }
 .primary:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--accent-deep); }
 .primary[disabled] { opacity: .7; cursor: default; }
+.card { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.card .ece:empty { display: none; }
+.card .btn { margin-top: 0; }
+.card .pe { border: 2px solid var(--line); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; background: var(--card); }
+.card .fee { margin: 0; text-align: center; font-size: 14px; color: var(--muted); }
+.card .link { align-self: center; }
+.card.loading { min-height: 120px; opacity: .55; }
+.secondary { background: transparent; color: var(--accent); border: 2px solid var(--line); margin-top: 10px; }
+.secondary[disabled] { opacity: .7; cursor: default; }
+.confirm { border: 2px solid var(--line); border-radius: 18px; padding: 16px 14px 14px; margin-top: 10px; background: var(--card); }
+.confirm p { margin: 0 0 4px; font: 900 20px/1.25 var(--rounded); text-align: center; text-wrap: balance; }
+.link { background: none; border: 0; padding: 12px 8px; min-height: 44px; color: var(--muted); font: inherit; font-size: 15px; text-decoration: underline; cursor: pointer; }
+.link[disabled] { opacity: .7; cursor: default; }
 .error { color: var(--warn); font-size: 14px; text-align: center; margin: 0; }
 
 .state { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 34px; }
